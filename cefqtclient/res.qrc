@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/backward.png</file>
+        <file>res/forward.png</file>
+        <file>res/reload.png</file>
+    </qresource>
+</RCC>

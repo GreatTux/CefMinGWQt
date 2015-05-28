@@ -1,0 +1,126 @@
+diff -rw release/include/base/cef_atomicops.h patched/include/base/cef_atomicops.h
+180c180
+< #if defined(OS_WIN) && defined(COMPILER_MSVC) && defined(ARCH_CPU_X86_FAMILY)
+---
+> #if defined(OS_WIN) && defined(ARCH_CPU_X86_FAMILY)
+diff -rw release/include/base/internal/cef_atomicops_x86_msvc.h patched/include/base/internal/cef_atomicops_x86_msvc.h
+84c84
+< #if !(defined(_MSC_VER) && _MSC_VER >= 1400)
+---
+> #if !(defined(_MSC_VER) && _MSC_VER >= 1400) && !defined(__MINGW32__)
+diff -rw release/include/base/internal/cef_bind_internal_win.h patched/include/base/internal/cef_bind_internal_win.h
+64c64
+<   R (__stdcall *function_)();
+---
+>   R ((__stdcall *function_))();
+82c82
+<   R (__fastcall *function_)();
+---
+>   R ((__fastcall *function_))();
+100c100
+<   R (__stdcall *function_)(A1);
+---
+>   R ((__stdcall *function_))(A1);
+118c118
+<   R (__fastcall *function_)(A1);
+---
+>   R ((__fastcall *function_))(A1);
+137c137
+<   R (__stdcall *function_)(A1, A2);
+---
+>   R ((__stdcall *function_))(A1, A2);
+156c156
+<   R (__fastcall *function_)(A1, A2);
+---
+>   R ((__fastcall *function_))(A1, A2);
+176c176
+<   R (__stdcall *function_)(A1, A2, A3);
+---
+>   R ((__stdcall *function_))(A1, A2, A3);
+196c196
+<   R (__fastcall *function_)(A1, A2, A3);
+---
+>   R ((__fastcall *function_))(A1, A2, A3);
+217c217
+<   R (__stdcall *function_)(A1, A2, A3, A4);
+---
+>   R ((__stdcall *function_))(A1, A2, A3, A4);
+238c238
+<   R (__fastcall *function_)(A1, A2, A3, A4);
+---
+>   R ((__fastcall *function_))(A1, A2, A3, A4);
+261c261
+<   R (__stdcall *function_)(A1, A2, A3, A4, A5);
+---
+>   R ((__stdcall *function_))(A1, A2, A3, A4, A5);
+284c284
+<   R (__fastcall *function_)(A1, A2, A3, A4, A5);
+---
+>   R ((__fastcall *function_))(A1, A2, A3, A4, A5);
+308c308
+<   R (__stdcall *function_)(A1, A2, A3, A4, A5, A6);
+---
+>   R ((__stdcall *function_))(A1, A2, A3, A4, A5, A6);
+332c332
+<   R (__fastcall *function_)(A1, A2, A3, A4, A5, A6);
+---
+>   R ((__fastcall *function_))(A1, A2, A3, A4, A5, A6);
+357c357
+<   R (__stdcall *function_)(A1, A2, A3, A4, A5, A6, A7);
+---
+>   R ((__stdcall *function_))(A1, A2, A3, A4, A5, A6, A7);
+382c382
+<   R (__fastcall *function_)(A1, A2, A3, A4, A5, A6, A7);
+---
+>   R ((__fastcall *function_))(A1, A2, A3, A4, A5, A6, A7);
+diff -rw release/include/capi/cef_download_item_capi.h patched/include/capi/cef_download_item_capi.h
+102c102
+<   cef_time_t (CEF_CALLBACK *get_start_time)(struct _cef_download_item_t* self);
+---
+>   cef_time_t ((CEF_CALLBACK *get_start_time))(struct _cef_download_item_t* self);
+107c107
+<   cef_time_t (CEF_CALLBACK *get_end_time)(struct _cef_download_item_t* self);
+---
+>   cef_time_t ((CEF_CALLBACK *get_end_time))(struct _cef_download_item_t* self);
+diff -rw release/include/capi/cef_navigation_entry_capi.h patched/include/capi/cef_navigation_entry_capi.h
+117c117
+<   cef_time_t (CEF_CALLBACK *get_completion_time)(
+---
+>   cef_time_t ((CEF_CALLBACK *get_completion_time))(
+diff -rw release/include/capi/cef_ssl_info_capi.h patched/include/capi/cef_ssl_info_capi.h
+154c154
+<   cef_time_t (CEF_CALLBACK *get_valid_start)(struct _cef_sslinfo_t* self);
+---
+>   cef_time_t ((CEF_CALLBACK *get_valid_start))(struct _cef_sslinfo_t* self);
+160c160
+<   cef_time_t (CEF_CALLBACK *get_valid_expiry)(struct _cef_sslinfo_t* self);
+---
+>   cef_time_t ((CEF_CALLBACK *get_valid_expiry))(struct _cef_sslinfo_t* self);
+diff -rw release/include/capi/cef_v8_capi.h patched/include/capi/cef_v8_capi.h
+388c388
+<   cef_time_t (CEF_CALLBACK *get_date_value)(struct _cef_v8value_t* self);
+---
+>   cef_time_t ((CEF_CALLBACK *get_date_value))(struct _cef_v8value_t* self);
+diff -rw release/include/internal/cef_export.h patched/include/internal/cef_export.h
+37c37
+< #if defined(COMPILER_MSVC)
+---
+> #if defined(OS_WIN)
+39,45c39
+< #ifdef BUILDING_CEF_SHARED
+< #define CEF_EXPORT __declspec(dllexport)
+< #elif USING_CEF_SHARED
+< #define CEF_EXPORT __declspec(dllimport)
+< #else
+< #define CEF_EXPORT
+< #endif
+---
+> #define CEF_EXPORT __attribute__ ((visibility("default")))
+diff -rw release/include/internal/cef_string_wrappers.h patched/include/internal/cef_string_wrappers.h
+35a36
+> #include <cstring>
+diff -rw release/libcef_dll/base/cef_logging.cc patched/libcef_dll/base/cef_logging.cc
+12c12
+< #elif defined(OS_POSIX)
+---
+> 
