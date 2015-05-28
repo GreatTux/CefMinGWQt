@@ -26,10 +26,11 @@ Release/
 Resources/
 ```
 
-Do not replace "include" and "libcef_dll" directories, they have been patched by myself to allow the compilation with MinGW (see "MinGW Compilation" section).
+Do not replace `include` and `libcef_dll` directories, they have been patched by myself to allow the compilation with MinGW (see "MinGW Compilation" section).
 
-* Run cmake on the root CMakeLists.txt
-* Run "make install" on the generated MakeFile
+* Create a build directory
+* Run cmake from your build directory pointing to the repository root CMakeLists.txt, ie `cmake -G"MinGW Makefiles" ..` 
+* Run `mingw32-make.exe install` on the generated Makefile
 
 Project
 -----
@@ -44,7 +45,7 @@ Project
 MinGW Compilation
 -----
 
-
+See `CEF.diff` at the root for more informations about the modifications that have been done.
 
 Thanks to
 -----
